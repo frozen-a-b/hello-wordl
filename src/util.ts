@@ -1,3 +1,4 @@
+import { encode } from "./base64";
 import dictionary from "./dictionary.json";
 
 export enum Difficulty {
@@ -58,4 +59,14 @@ export function speak(
 
 export function ordinal(n: number): string {
   return n + ([, "st", "nd", "rd"][(n % 100 >> 3) ^ 1 && n % 10] || "th");
+}
+
+export function getChallengeUrl(target: string, author: string): string {
+  return (
+    window.location.origin +
+    window.location.pathname +
+    "?challenge=" +
+    encode(target) +
+    (author ? `&author=${author}` : "")
+  );
 }
